@@ -41,34 +41,37 @@ client.on('guildMemberAdd', (member) => {
   });
 });
 
-// Schedule daily morning message
-cron.schedule('0 6 * * *', async () => {
-  const guild = client.guilds.cache.find(g => g.name === 'ꌗꂦ꒒ꍏꋪ ꌗꉣꍏꉓꍟ ꂦꎇ ꈤꂦꃴꍏ');
-  if (!guild) return console.log('Guild not found.');
 
-  const cosmicLounge = client.channels.cache.get('1334553960891285605');
-  if (!cosmicLounge) return console.log('Cosmic lounge channel not found.');
+client.once('ready', () => {
+  console.log(`${client.user.tag} is online!`);
 
-  const role = guild.roles.cache.find(role => role.name === '💫𝑵𝒐𝒗𝒂 𝒔𝒕𝒂𝒓𝒔');
-  if (!role) return console.log('Role not found.');
+  cron.schedule('0 6 * * *', async () => {
+    const guild = client.guilds.cache.find(g => g.name === 'ꌗꂦ꒒ꍏꋪ ꌗꉣꍏꉓꍟ ꂦꎇ ꈤꂦꃴꍏ');
+    if (!guild) return console.log('Guild not found.');
 
-  const embed = new EmbedBuilder()
-    .setColor('#d94f41')
-    .setAuthor({ name: 'Miskie Nova', iconURL: 'https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/c4af5d7b09fe6447d850ae1ce9fc68a10d464b633f167bdaefa778e16324e16f.jpeg' })
-    .setTitle('✨ Good morning, Nova Star! 🌟')
-    .setDescription(`Good morning ${role}! ☀️  
+    const cosmicLounge = client.channels.cache.get('1334553960891285605');
+    if (!cosmicLounge) return console.log('Cosmic lounge channel not found.');
+
+    const role = guild.roles.cache.find(role => role.name === '💫𝑵𝒐𝒗𝒂 𝒔𝒕𝒂𝒓𝒔');
+    if (!role) return console.log('Role not found.');
+
+    const embed = new EmbedBuilder()
+      .setColor('#d94f41')
+      .setAuthor({ name: 'Miskie Nova', iconURL: 'https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/c4af5d7b09fe6447d850ae1ce9fc68a10d464b633f167bdaefa778e16324e16f.jpeg' })
+      .setTitle('✨ Good morning, Nova Star! 🌟')
+      .setDescription(`Good morning ${role}! ☀️  
 Don't forget to have your breakfast, and may your day be as radiant as a supernova and as fierce as a queen on the runway.`)
-    .setImage('https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/014da2e5b0a1217e42c3e086b57c09627d8a585692512e85ab7a4d5b4d34e271.jpeg')
-    .setFooter({ text: '💫 Love you all to the galaxies and back! 🚀' });
+      .setImage('https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/014da2e5b0a1217e42c3e086b57c09627d8a585692512e85ab7a4d5b4d34e271.jpeg')
+      .setFooter({ text: '💫 Love you all to the galaxies and back! 🚀' });
 
-  cosmicLounge.send({ content: `${role}`, embeds: [embed] }).then(msg => {
-    msg.react('☀️');
-    msg.react('💫');
+    await cosmicLounge.send({ content: `${role}`, embeds: [embed] });
+    console.log('Morning message sent.');
+  }, {
+    timezone: "Asia/Manila"
   });
-  console.log('Morning message sent.');
-}, {
-  timezone: "Asia/Manila"
 });
+
+
 
 // Auto-reply to images with reactions and an embed
 const targetChannelId = '1334568160719933491'; // Replace with your photo channel's ID
@@ -170,13 +173,27 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isButton()) return;
 
   if (interaction.customId === 'verify') {
-    await interaction.reply({ content: '✅ You have been verified! Welcome to the **Nova Galaxy**!', ephemeral: true });
-    const role = interaction.guild.roles.cache.find(role => role.name === '🚀 Starlet'); // Adjust to your role
-    if (role) {
-      await interaction.member.roles.add(role).catch(console.error);
+    const role = interaction.guild.roles.cache.find(role => role.name === '🚀 Starlet');
+    const member = interaction.guild.members.cache.get(interaction.user.id);
+
+    if (!role) {
+      return interaction.reply({ content: '🚨 The **Starlet** role was not found. Please contact a Nova Supreme!', ephemeral: true });
+    }
+
+    if (!member) {
+      return interaction.reply({ content: '⚠️ Unable to verify you at the moment. Please try again later.', ephemeral: true });
+    }
+
+    try {
+      await member.roles.add(role);
+      await interaction.reply({ content: '✅ You have been verified and are now a **Starlet**! Welcome to the **Nova Galaxy**! 🌠', ephemeral: true });
+    } catch (error) {
+      console.error('Failed to assign role:', error);
+      await interaction.reply({ content: '❌ Something went wrong while assigning your role. Please contact a Nova Supreme.', ephemeral: true });
     }
   }
 });
+
 
 // Define bad words to watch for (you can customize this list)
 const badWords = ['bitch', 'bobo', 'pangit','obob','shit']; // Add actual words
