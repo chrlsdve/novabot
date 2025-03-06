@@ -242,6 +242,17 @@ client.once('ready', () => {
   console.log(`🚀 Bot is online as ${client.user.tag}`);
 });
 
+// Function to check for level-ups and assign rewards
+const checkLevelUp = async (member, userData) => {
+  const neededXP = xpToNextLevel(userData.level);
+
+  if (userData.xp >= neededXP) {
+    userData.xp = 0;
+    userData.level += 1;
+    client.emit('levelUp', member, userData.level);
+  }
+};
+
 // Level-up event listener
 client.on('levelUp', async (member, level) => {
   const channel = client.channels.cache.get(levelUpChannelId);
