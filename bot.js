@@ -225,18 +225,24 @@ await message.reply({ embeds: [embed] });
   }
 });
 
-// Level system placeholder — integrate with your existing XP logic
-const levelUpChannelId = '1345759905344262179'; // Replace with your level-up announcement channel ID
 
-// Level roles and their corresponding badge images and roles
+// Level-up channel ID
+const levelUpChannelId = '1345759905344262179';
+
+// Level rewards with correct badge URLs and role IDs
 const levelRewards = {
-  1: { badge: 'https://https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png?ex=67cabe0b&is=67c96c8b&hm=c9e12cc8cd9b214abdcbed2045ce688c2316ea888c72d1051889cdbbc70c2886&=&format=webp&quality=lossless&width=663&height=663.com/badge-level-5.png', roleId: '1345752822532145194' },
-  6: { badge: 'https://https://media.discordapp.net/attachments/1334549471350226998/1347140697928634420/Subtitle_3.png?ex=67cabe0b&is=67c96c8b&hm=3025c0c6372adfd00d4389d21ab60c97e0d4ae1fa304086f3d4643371c0788e8&=&format=webp&quality=lossless&width=663&height=663.com/badge-level-10.png', roleId: '1345753547416932463' },
-  11: { badge: 'https://https://media.discordapp.net/attachments/1334549471350226998/1347140697299619860/Subtitle_4.png?ex=67cabe0a&is=67c96c8a&hm=f58e26e6b2d477d6403cd46d2f9d839ad9c5fd18c7996e8989ce4087f3ff50d4&=&format=webp&quality=lossless&width=663&height=663.com/badge-level-15.png', roleId: '1345753553595011082' },
-  16: { badge: 'https://https://media.discordapp.net/attachments/1334549471350226998/1347140753096445962/badge2.png?ex=67cabe18&is=67c96c98&hm=41d8a5a5eb6af0ebcc00c969061c73e468684584e47a3eacdac427ea84baaa3a&=&format=webp&quality=lossless&width=663&height=663.com/badge-level-20.png', roleId: '1345753557483257968' },
-  21: { badge: 'https://https://media.discordapp.net/attachments/1334549471350226998/1347140752622358618/badge1.png?ex=67cabe18&is=67c96c98&hm=b59d005ddc26985229057bbcd118b1acb9f3b038ec536d771ce412fd28856cd6&=&format=webp&quality=lossless&width=663&height=663.com/badge-level-20.png', roleId: '1345753561694343219' }
+  1: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png', roleId: '1345752822532145194' },
+  6: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697928634420/Subtitle_3.png', roleId: '1345753547416932463' },
+  11: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697299619860/Subtitle_4.png', roleId: '1345753553595011082' },
+  16: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140753096445962/badge2.png', roleId: '1345753557483257968' },
+  21: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140752622358618/badge1.png', roleId: '1345753561694343219' },
 };
 
+client.once('ready', () => {
+  console.log(`🚀 Bot is online as ${client.user.tag}`);
+});
+
+// Level-up event listener
 client.on('levelUp', async (member, level) => {
   const channel = client.channels.cache.get(levelUpChannelId);
   if (!channel) return console.log('Level-up channel not found.');
@@ -245,14 +251,14 @@ client.on('levelUp', async (member, level) => {
   if (reward) {
     const levelEmbed = new EmbedBuilder()
       .setColor('#d94f41')
-      .setTitle(`🌟 Cosmic Achievement Unlocked! 🌌`)
+      .setTitle('🌟 Cosmic Achievement Unlocked! 🌌')
       .setDescription(`${member}, you’ve ascended to **Level ${level}**! ✨\n\nHere’s your brand new badge and role:`)
       .setImage(reward.badge)
       .setFooter({ text: 'Keep shining and climbing the galaxy!' });
 
     await channel.send({ content: `🚀 Congratulations, ${member}!`, embeds: [levelEmbed] });
-    
-    // Assign the new role
+
+    // Assign role
     const role = member.guild.roles.cache.get(reward.roleId);
     if (role) {
       await member.roles.add(role);
@@ -262,7 +268,5 @@ client.on('levelUp', async (member, level) => {
     }
   }
 });
-
-
 
 client.login(process.env.TOKEN); // Ensure your .env has the correct bot token
