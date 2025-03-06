@@ -262,12 +262,17 @@ client.on('levelUp', async (member, level) => {
   if (reward) {
     const levelEmbed = new EmbedBuilder()
       .setColor('#d94f41')
-      .setTitle('🌟 Cosmic Achievement Unlocked! 🌌')
-      .setDescription(`${member}, you’ve ascended to **Level ${level}**! ✨\n\nHere’s your brand new badge and role:`)
+      .setTitle('🌟 Cosmic Ascension! 🌟')
+      .setDescription(`✨ Congratulations, ${member}! ✨\n\nYou've **leveled up to Level ${level}** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\n**🌠 Your reward:**\n> 🏅 **New Badge:**\n> 🌟 **Role Upgrade** — Claim your cosmic crown! 👑`)
       .setImage(reward.badge)
-      .setFooter({ text: 'Keep shining and climbing the galaxy!' });
+      .setFooter({ text: 'Keep glowing and growing — the universe is yours to conquer! 🚀' });
 
-    await channel.send({ content: `🚀 Congratulations, ${member}!`, embeds: [levelEmbed] });
+    const msg = await channel.send({ content: `🌟 **Hats off to ${member}!** 🚀`, embeds: [levelEmbed] });
+
+    // Add reactions
+    await msg.react('🌠');
+    await msg.react('✨');
+    await msg.react('🚀');
 
     // Assign role
     const role = member.guild.roles.cache.get(reward.roleId);
@@ -279,5 +284,37 @@ client.on('levelUp', async (member, level) => {
     }
   }
 });
+
+// Test level-up command for moderators
+client.on('messageCreate', async (message) => {
+  if (message.content.startsWith('!testLevelUp')) {
+    if (!message.member.permissions.has('ManageRoles')) {
+      return message.reply('❌ You don’t have permission to use this command.');
+    }
+
+    const args = message.content.split(' ');
+    const level = parseInt(args[1]);
+
+    if (isNaN(level) || !levelRewards[level]) {
+      return message.reply('⚠️ Please provide a valid level to test (1, 6, 11, 16, 21).');
+    }
+
+    const reward = levelRewards[level];
+    const levelEmbed = new EmbedBuilder()
+      .setColor('#d94f41')
+      .setTitle('🌟 Cosmic Ascension Test! 🌟')
+      .setDescription(`✨ **Test Preview** for **Level ${level}** ✨\n\nThis is how the message will look when someone levels up. 🌠\n\n**🏅 Reward:**\n> 🌌 **Badge:** Displayed below\n> 🎖️ **Role:** Will be auto-assigned`)
+      .setImage(reward.badge)
+      .setFooter({ text: 'Test only — keep conquering the galaxy!' });
+
+    const testMsg = await message.channel.send({ content: `🌠 **Test Complete!** (Level ${level})`, embeds: [levelEmbed] });
+
+    // Add fun reactions
+    await testMsg.react('🛸');
+    await testMsg.react('🌠');
+    await testMsg.react('💫');
+  }
+});
+
 
 client.login(process.env.TOKEN); // Ensure your .env has the correct bot token
