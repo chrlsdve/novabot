@@ -110,11 +110,81 @@ const runwayChannelId = '1334554404384411780'; // Replace with your runway look 
 
 const runwayReplies = [
   '💃 Strut it, star! That runway has never seen such elegance!',
-  '🌟 Serving looks, slaying hearts — you are a galactic fashion icon!',
   '✨ The category is: Serve... and you ATE!',
   '🚀 Out of this world! Your look just launched into the fashion cosmos!',
   '🌠 Fierce, fabulous, flawless — you OWN that runway!',
   '🔥 This galaxy isn’t ready for your cosmic charisma, uniqueness, nerve, and talent!',
+  '😍 OMG, you look amazing!! This is a whole vibe!',
+  '🔥 Who gave you permission to slay like this??',
+  '💖 Nova Behaviour, you are literally serving looks effortlessly!',
+  '📸 This is profile pic material, no doubt!',
+  '🤩 You ate this up, no crumbs left!',
+  '✨ Okay model, I see you!! Vogue is calling!',
+  '💯 This? This is what perfection looks like!',
+  '😩 Ugh, you’re too pretty, I can’t handle it!',
+  '🌟 The glow, the confidence, the ENERGY! Love it!',
+  '👑 Bestie, this is ICONIC. I’m saving this in my faves!',
+  '😌 Effortlessly stunning, as always!',
+  '💃 Yesss, show them how it’s DONE!',
+  '📢 Everyone, look at this masterpiece right here!',
+  '🥺 Why are you so gorgeous?? I’m jealous!',
+  '🙌 10/10, no notes, absolute perfection!',
+  '🎨 Giving main character energy, love to see it!',
+  '😵‍💫 I just fainted from how good this is!',
+  '🫠 Melting because of how GOOD you look!',
+  '🌈 Serving beauty, confidence, and a whole lot of slay!',
+  '👀 Okay, but where’s my photoshoot invite??',
+  '💌 Sending this to NASA because you are a STAR!',
+  '🫶 The world is simply not ready for this level of beauty!',
+  '🤯 Stop, you didn’t have to pop off like this!!',
+  '💥 BOOM! Another serve from you, as expected!',
+  '🛑 I need a moment… this is TOO GOOD.',
+  '🎭 This is ART. A whole masterpiece!',
+  '😤 Bestie, leave some beauty for the rest of us!',
+  '💘 Instant wallpaper material, no questions asked.',
+  '📸 If looking this good was a crime, you’d be in jail!',
+  '🦋 The aura, the energy, the perfection—I’M OBSESSED!',
+  '🥂 Cheers to another iconic moment captured!',
+  '💨 You just left everyone in the dust with this one!',
+  '🔥 Someone call 911, because this is TOO HOT!',
+  '😎 Effortlessly cool, as always. Teach me your ways!',
+  '🚀 Elevating the whole timeline with this pic!',
+  '🧊 Ice cold! The drip is UNMATCHED.',
+  '🎬 Main character energy? No, this is MOVIE STAR level!',
+  '✨ This? This is what confidence looks like!',
+  '🛍️ Giving expensive, giving luxury, giving TOP TIER.',
+  '📢 EVERYONE STOP. This is the moment.',
+  '🌊 Smooth, fresh, and absolutely breathtaking!',
+  '🌍 The world needs to see this IMMEDIATELY!',
+  '🕶️ Oh, just casually flexing on us all, huh?',
+  '🖼️ Framing this because it belongs in a museum!',
+  '🍯 Sweet, stunning, and absolutely golden!',
+  '🧙‍♂️ Must be magic because I’m ENCHANTED!',
+  '🎇 You light up every picture you take!',
+  '📢 This is an official public service announcement: You SNAPPED!',
+  '🎶 Beyoncé wrote “Flawless” about you, don’t lie!',
+  '📷 New pic, same slay. Never missing!',
+  '🍑 Looking GOOD from every angle, period!',
+  '🤩 Literally giving “breathtaking” energy!',
+  '💎 Rare. Priceless. Iconic. You.',
+  '🛸 Extraterrestrial levels of beauty—out of this world!',
+  '🌪️ This pic just shook the entire internet!',
+  '💡 The lighting, the pose, the EVERYTHING? Chef’s kiss!',
+  '👑 Royalty. Absolute royalty. Bowing down.',
+  '🌸 So soft, so pretty, so perfect!',
+  '💖 Hey Star, you just dropped the pic of the YEAR!',
+  '🌟 Another day, another flawless moment from you!',
+  '⚡ Electrifying! Your energy JUMPS out of this photo!',
+  '🕊️ Pure elegance, no one is doing it like you!',
+  '💌 Sending this pic straight to my heart, I LOVE IT!',
+  '🥵 This? This is dangerously good!',
+  '💃 Striking a pose and owning the moment like a PRO!',
+  '🖤 Dark, mysterious, and absolutely captivating!',
+  '💫 Shining so bright, I need sunglasses to look at this!',
+  '🍷 Classy, sassy, and absolutely legendary!',
+  '🤳 Teach me your selfie secrets because WOW!',
+  '🫠 Melting at how GOOD this is!',
+  '🌈 Pure perfection, as always!',
 ];
 
 client.on('messageCreate', (message) => {
@@ -225,94 +295,66 @@ await message.reply({ embeds: [embed] });
   }
 });
 
+const levelUpChannelId = '1345759905344262179'; // Level-up channel ID
+const arcaneBotId = '1217870452253397082'; // Replace with Arcane-chan's actual bot ID
 
-// Level-up channel ID
-const levelUpChannelId = '1345759905344262179';
-
-// Level rewards with correct badge URLs and role IDs
 const levelRewards = {
-  1: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png', roleId: '1345752822532145194' },
-  6: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697928634420/Subtitle_3.png', roleId: '1345753547416932463' },
-  11: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697299619860/Subtitle_4.png', roleId: '1345753553595011082' },
-  16: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140753096445962/badge2.png', roleId: '1345753557483257968' },
-  21: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140752622358618/badge1.png', roleId: '1345753561694343219' },
+    1: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png', roleId: '1345752822532145194' },
+    6: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697928634420/Subtitle_3.png', roleId: '1345753547416932463' },
+    11: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697299619860/Subtitle_4.png', roleId: '1345753553595011082' },
+    16: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140753096445962/badge2.png', roleId: '1345753557483257968' },
+    21: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140752622358618/badge1.png', roleId: '1345753561694343219' },
 };
 
 client.once('ready', () => {
-  console.log(`🚀 Bot is online as ${client.user.tag}`);
+    console.log(`🚀 Bot is online as ${client.user.tag}`);
 });
 
-// Function to check for level-ups and assign rewards
-const checkLevelUp = async (member, userData) => {
-  const neededXP = xpToNextLevel(userData.level);
-
-  if (userData.xp >= neededXP) {
-    userData.xp = 0;
-    userData.level += 1;
-    client.emit('levelUp', member, userData.level);
-  }
-};
-
-// Level-up event listener
-client.on('levelUp', async (member, level) => {
-  const channel = client.channels.cache.get(levelUpChannelId);
-  if (!channel) return console.log('Level-up channel not found.');
-
-  const reward = levelRewards[level];
-  if (reward) {
-    const levelEmbed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setTitle('🌟 Cosmic Ascension! 🌟')
-      .setDescription(`✨ Congratulations, ${member}! ✨\n\nYou've **leveled up to Level ${level}** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\n**🌠 Your reward:**\n> 🏅 **New Badge:**\n> 🌟 **Role Upgrade** — Claim your cosmic crown! 👑`)
-      .setImage(reward.badge)
-      .setFooter({ text: 'Keep glowing and growing — the universe is yours to conquer! 🚀' });
-
-    const msg = await channel.send({ content: `🌟 **Hats off to ${member}!** 🚀`, embeds: [levelEmbed] });
-
-    // Add reactions
-    await msg.react('🌠');
-    await msg.react('✨');
-    await msg.react('🚀');
-
-    // Assign role
-    const role = member.guild.roles.cache.get(reward.roleId);
-    if (role) {
-      await member.roles.add(role);
-      console.log(`Assigned role ${role.name} to ${member.user.tag} for reaching Level ${level}`);
-    } else {
-      console.log(`Role for Level ${level} not found.`);
-    }
-  }
-});
-
-// Test level-up command for moderators
 client.on('messageCreate', async (message) => {
-  if (message.content.startsWith('!testLevelUp')) {
-    if (!message.member.permissions.has('ManageRoles')) {
-      return message.reply('❌ You don’t have permission to use this command.');
+    if (message.channel.id !== levelUpChannelId) return; // Only respond in the level-up channel
+    if (message.author.id !== arcaneBotId) return; // Only listen to Arcane-chan's messages
+
+    // Extract user mention and level from Arcane-chan's message
+    const levelUpRegex = /Congratulations, (<@!?(\d+)>).*?leveled up to (\d+)/;
+    const match = message.content.match(levelUpRegex);
+
+    if (!match) return; // If format is incorrect, ignore
+
+    const userId = match[2];
+    const level = parseInt(match[3]);
+    const member = await message.guild.members.fetch(userId).catch(() => null);
+
+    if (!member) return; // If user not found, exit
+
+    // Prepare the level-up embed
+    const embed = new EmbedBuilder()
+        .setColor('#d94f41')
+        .setTitle('🌟 Cosmic Ascension! 🌟')
+        .setDescription(`✨ Congratulations, ${member}! ✨\n\nYou've **leveled up to Level ${level}** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\nKeep glowing and keep growing — the universe is yours to conquer! 🚀`);
+
+    if (levelRewards[level]) {
+        embed.addFields({ name: '🏅 Reward:', value: '🎖️ **New Badge & Role Upgrade** 👑' });
+        embed.setImage(levelRewards[level].badge);
+
+        // Assign the role
+        const role = message.guild.roles.cache.get(levelRewards[level].roleId);
+        if (role) {
+            await member.roles.add(role).catch(console.error);
+        }
     }
 
-    const args = message.content.split(' ');
-    const level = parseInt(args[1]);
-
-    if (isNaN(level) || !levelRewards[level]) {
-      return message.reply('⚠️ Please provide a valid level to test (1, 6, 11, 16, 21).');
-    }
-
-    const reward = levelRewards[level];
-    const levelEmbed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setTitle('🌟 Cosmic Ascension Test! 🌟')
-      .setDescription(`✨ **Test Preview** for **Level ${level}** ✨\n\nThis is how the message will look when someone levels up. 🌠\n\n**🏅 Reward:**\n> 🌌 **Badge:** Displayed below\n> 🎖️ **Role:** Will be auto-assigned`)
-      .setImage(reward.badge)
-      .setFooter({ text: 'Test only — keep conquering the galaxy!' });
-
-    const testMsg = await message.channel.send({ content: `🌠 **Test Complete!** (Level ${level})`, embeds: [levelEmbed] });
-
-    // Add fun reactions
-    await testMsg.react('🛸');
-    await testMsg.react('🌠');
-    await testMsg.react('💫');
+    // Reply to Arcane-chan's level-up message
+    message.reply({ embeds: [embed] }).catch(console.error);
+});
+client.on('messageCreate', async (message) => {
+  if (message.content === '!testembed') {
+      const embed = new EmbedBuilder()
+          .setColor('#d94f41')
+          .setTitle('🌟 Cosmic Ascension! 🌟')
+          .setDescription(`✨ Congratulations, <@${message.author.id}>! ✨\n\nYou've **leveled up to Level 10** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\nKeep glowing and keep growing — the universe is yours to conquer! 🚀`)
+          .setImage('https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png');
+      
+      message.channel.send({ embeds: [embed] });
   }
 });
 
