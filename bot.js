@@ -77,38 +77,6 @@ Don't forget to have your breakfast, and may your day be as radiant as a superno
 const targetChannelId = '1334568160719933491'; // Replace with your photo channel's ID
 
 const randomReplies = [
-  '✨ 𝐒𝐭𝐞𝐥𝐥𝐚𝐫 𝐬𝐡𝐨𝐭! 𝐘𝐨𝐮𝐫 𝐠𝐚𝐥𝐚𝐱𝐲 𝐬𝐡𝐢𝐧𝐞𝐬 𝐞𝐯𝐞𝐧 𝐛𝐫𝐢𝐠𝐡𝐭𝐞𝐫 𝐧𝐨𝐰!',
-  '🌠 𝐂𝐨𝐬𝐦𝐢𝐜 𝐦𝐚𝐬𝐭𝐞𝐫𝐩𝐢𝐞𝐜𝐞! 𝐊𝐞𝐞𝐩 𝐬𝐡𝐚𝐫𝐢𝐧𝐠 𝐲𝐨𝐮𝐫 𝐜𝐞𝐥𝐞𝐬𝐭𝐢𝐚𝐥 𝐚𝐫𝐭!',
-  '🚀 𝐓𝐡𝐚𝐭 𝐩𝐢𝐜 𝐣𝐮𝐬𝐭 𝐛𝐥𝐚𝐬𝐭𝐞𝐝 𝐦𝐞 𝐭𝐨 𝐚𝐧𝐨𝐭𝐡𝐞𝐫 𝐝𝐢𝐦𝐞𝐧𝐬𝐢𝐨𝐧!',
-  '🌌 𝐋𝐨𝐨𝐤𝐬 𝐥𝐢𝐤𝐞 𝐚 𝐬𝐭𝐚𝐫 𝐰𝐚𝐬 𝐛𝐨𝐫𝐧!',
-  '🌟 𝐘𝐨𝐮𝐫 𝐜𝐫𝐞𝐚𝐭𝐢𝐯𝐢𝐭𝐲 𝐢𝐬 𝐥𝐢𝐠𝐡𝐭𝐢𝐧𝐠 𝐮𝐩 𝐭𝐡𝐞 𝐮𝐧𝐢𝐯𝐞𝐫𝐬𝐞!',
-  '🌠 𝐀𝐛𝐬𝐨𝐥𝐮𝐭𝐞𝐥𝐲 𝐫𝐚𝐝𝐢𝐚𝐧𝐭! 𝐀 𝐭𝐫𝐮𝐞 𝐍𝐨𝐯𝐚 𝐬𝐭𝐚𝐫 𝐦𝐨𝐦𝐞𝐧𝐭!',
-];
-
-client.on('messageCreate', (message) => {
-  if (message.channel.id === targetChannelId && message.attachments.size > 0 && !message.author.bot) {
-    const randomReply = randomReplies[Math.floor(Math.random() * randomReplies.length)];
-    const userMention = `<@${message.author.id}>`;
-
-    const replyEmbed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setDescription(`${randomReply} ${userMention}`)
-      //.setImage(message.attachments.first().url)
-      .setFooter({ text: '🌟 Keep dazzling us with your art!' });
-
-    message.reply({ embeds: [replyEmbed] }).then((msg) => {
-      msg.react('🫶');
-      msg.react('💖');
-      msg.react('✨');
-    }).catch(console.error);
-  }
-});
-
-// Auto-reply for runway looks channel
-const runwayChannelId = '1334554404384411780'; // Replace with your runway look channel's ID
-
-const runwayReplies = [
   '💃 Strut it, star! That runway has never seen such elegance!',
   '✨ The category is: Serve... and you ATE!',
   '🚀 Out of this world! Your look just launched into the fashion cosmos!',
@@ -185,6 +153,67 @@ const runwayReplies = [
   '🤳 Teach me your selfie secrets because WOW!',
   '🫠 Melting at how GOOD this is!',
   '🌈 Pure perfection, as always!',
+];
+
+client.on('messageCreate', (message) => {
+  if (message.channel.id === targetChannelId && message.attachments.size > 0 && !message.author.bot) {
+    const randomReply = randomReplies[Math.floor(Math.random() * randomReplies.length)];
+    const userMention = `<@${message.author.id}>`;
+
+    const replyEmbed = new EmbedBuilder()
+      .setColor('#d94f41')
+      .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+      .setDescription(`${randomReply} ${userMention}`)
+      //.setImage(message.attachments.first().url)
+      .setFooter({ text: '🌟 Keep dazzling us with your art!' });
+
+    message.reply({ embeds: [replyEmbed] }).then((msg) => {
+      msg.react('🫶');
+      msg.react('💖');
+      msg.react('✨');
+    }).catch(console.error);
+  }
+});
+
+// Auto-reply for runway looks channel
+const runwayChannelId = '1334554404384411780'; // Replace with your runway look channel's ID
+
+const runwayReplies = [
+  '💃 Strut it, star! That runway has never seen such elegance!',
+  '🌟 Serving looks, slaying hearts — you are a galactic fashion icon!',
+  '✨ The category is: Serve... and you ATE!',
+  '🚀 Out of this world! Your look just launched into the fashion cosmos!',
+  '🌠 Fierce, fabulous, flawless — you OWN that runway!',
+  '🔥 This galaxy isn’t ready for your cosmic charisma, uniqueness, nerve, and talent!',
+
+  // 🌈 Campy & Fun
+  '💅 Pose, twirl, SERVE! You just turned this runway into a spectacle!',
+  '👑 Royalty has arrived! Bow down to this fashion supremacy!',
+  '🍽️ You didn’t just eat, you devoured the whole fashion industry!',
+  '🎭 Drama, glamour, extravaganza — this is what a runway moment looks like!',
+  '✨ Glitter, glam, and a whole lot of attitude – we LOVE to see it!',
+  '🎬 And the award for Best Dressed goes to… YOU! *Cue standing ovation!*',
+  
+  // 🔥 Sass & Iconic
+  '💀 The girls are gagging, the judges are speechless — you WIN!',
+  '💖 This isn’t just fashion, it’s a cultural reset!',
+  '🛑 STOP! Fashion police just called, and they said you’re too powerful!',
+  '🧵 Fabric? Stunned. Stitching? Seamless. You? Perfection.',
+  '📸 *Click click click* The paparazzi can’t get enough of this LEWK!',
+  
+  // 🕺 Pop Culture References
+  '🎤 *Shantay, you stay!* Because that look just won the night!',
+  '👠 *These boots were made for slayin’… and that’s just what you did!*',
+  '✨ *In the words of the great RuPaul… You. Better. Work!*',
+  '🦄 *Giving very much “fashion unicorn realness” and we’re LIVING!*',
+  '💃 *Straight out of a Vogue magazine — Naomi Campbell is shaking!*',
+  
+  // 🔥 Dramatic & Extra
+  '💣 BOOM! That’s the sound of you shutting down the competition!',
+  '🔥 *Call the fire department, because this runway is BLAZING!*',
+  '🌊 You didn’t walk, you WAVED, and honey, we’re drowning in this look!',
+  '👀 We’re not just watching, we’re taking notes. FASHION MASTERCLASS!',
+  '🌪️ You didn’t walk the runway; you *stormed* it. Absolute destruction!',
 ];
 
 client.on('messageCreate', (message) => {
