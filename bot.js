@@ -272,7 +272,7 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isButton()) return;
 
   if (interaction.customId === 'verify') {
-    const role = interaction.guild.roles.cache.find(role => role.name === '🚀 Starlet');
+    const role = interaction.guild.roles.cache.find(role => role.name === '🚀 Starlets');
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
     if (!role) {
