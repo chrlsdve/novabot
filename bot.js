@@ -387,5 +387,42 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+module.exports = {
+  name: "farminginfo",
+  description: "Sends farming server details in a specific channel",
+  execute(client) {
+      const channel = client.channels.cache.get("1352327865248645191"); // Replace with your actual channel ID
+      if (!channel) return console.log("🚀 Nova Bot: Channel not found!");
+
+      // First embed: General Info
+      const embed1 = new EmbedBuilder()
+          .setColor("#4C1D95") // Deep purple galaxy color
+          .setTitle("✨🌌 24/7 Cosmic Farming 🌌✨")
+          .setDescription(`
+𖥔・ **Always open, anytime, anywhere**
+`)
+          .setFooter({ text: "☄️ Powered by Solar Space of Nova" });
+
+      // Second embed: Farming Server Links
+      const embed2 = new EmbedBuilder()
+          .setColor("#2d13bf") // Nova's theme color
+          .setTitle("✨ Farming Server Links")
+          .setDescription("*Click the blue text to open!*")
+          .addFields(
+              { name: "𖥔・ [🪐 Farming Server 1](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=99994808916380617543284492633561)", value: "\u200B" },
+              { name: "𖥔・ [🪐 Farming Server 2](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=35927885826186869949392334287974)", value: "\u200B" },
+              { name: "𖥔・ [🪐 Farming Server 3](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=19787315109919621567103030508508)", value: "\u200B" },
+              { name: "𖥔・ [🪐 Farming Server 4](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527)", value: "\u200B" },
+              { name: "𖥔・ [🪐 Farming Server 5](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527)", value: "\u200B" }
+          )
+          // .setThumbnail("https://cdn-icons-png.flaticon.com/512/856/856902.png");
+
+      // Send messages with error handling
+      channel.send({ embeds: [embed1, embed2] }).catch(err => {
+          console.error("🚀 Nova Bot: Failed to send farming info embed!", err);
+      });
+  }
+};
+
 
 client.login(process.env.TOKEN); // Ensure your .env has the correct bot token
