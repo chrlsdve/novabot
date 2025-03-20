@@ -406,7 +406,7 @@ client.once("ready", async () => {
         .setDescription(`
 𖥔・ **Always open, anytime, anywhere**  
         `)
-        .setImage("https://your-image-url.com/general-info.png") // Replace with an actual image URL
+        // .setImage("https://your-image-url.com/general-info.png") // Replace with an actual image URL
         .setFooter({ text: "☄️ Powered by Solar Space of Nova"});
 
     // Second embed: Farming Server Links
@@ -415,13 +415,12 @@ client.once("ready", async () => {
         .setTitle("✨ Farming Server Links")
         .setDescription("*Click the blue text to open!*")
         .addFields(
-          { name: "𖥔・ [🪐 Farming Server 1](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=99994808916380617543284492633561)", value: "\u200B" },
-          { name: "𖥔・ [🪐 Farming Server 2](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=35927885826186869949392334287974)", value: "\u200B" },
-          { name: "𖥔・ [🪐 Farming Server 3](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=19787315109919621567103030508508)", value: "\u200B" },
-          { name: "𖥔・ [🪐 Farming Server 4](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527)", value: "\u200B" },
-          { name: "𖥔・ [🪐 Farming Server 5](https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527)", value: "\u200B" }
-      
-        )
+          { name: "𖥔・ [🪐 Farming Server 1](<https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=99994808916380617543284492633561>)", value: "\u200B" },
+          { name: "𖥔・ [🪐 Farming Server 2](<https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=35927885826186869949392334287974>)", value: "\u200B" },
+          { name: "𖥔・ [🪐 Farming Server 3](<https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=19787315109919621567103030508508>)", value: "\u200B" },
+          { name: "𖥔・ [🪐 Farming Server 4](<https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527>)", value: "\u200B" },
+          { name: "𖥔・ [🪐 Farming Server 5](<https://www.roblox.com/games/15101393044/Dress-To-Impress-STYLE-SHOWDOWN?privateServerLinkCode=97379643410168961227824030165527>)", value: "\u200B" }
+      );
         // .setImage("https://your-image-url.com/farming-servers.png"); // Replace with an actual image URL
 
     // Send messages with error handling
