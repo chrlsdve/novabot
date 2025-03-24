@@ -429,5 +429,31 @@ client.once("ready", async () => {
         .catch(err => console.error("❌ Error sending farming info embed:", err));
 });
 
+const allowedChannels = ['1345414570663084072'];
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  if (!allowedChannels.includes(message.channel.id)) return;
+
+  const content = message.content.toLowerCase();
+
+  const responses = [
+    { trigger: ['hello', 'hi', 'hey'], reply: 'Heyyy! ✨ How’s your cosmic journey today? 🌌' },
+    { trigger: ['good morning', 'gm'], reply: 'Good morning, starshine! ☀️✨ Hope today’s full of cosmic vibes!' },
+    { trigger: ['good night', 'gn'], reply: 'Sleep well, space explorer! 🌙💫 Dream of galaxies far away~' },
+    { trigger: ['how are you'], reply: 'I’m vibing in the Nova Galaxy~ 🚀 How about you?' },
+    { trigger: ['pagod ako', 'stress ako'], reply: 'Huy, pahinga ka muna! 😌🌿 Baka kailangan mo ng cosmic energy boost? ✨' },
+    { trigger: ['ano ginagawa mo'], reply: 'Nagchichill lang sa spaceship ko~ 🚀 Anong ganap diyan?' },
+    { trigger: ['sino ka'], reply: 'Ako si NovaBot, your cosmic bestie! 🌟 Always here to keep the Nova Fam alive and thriving!' },
+    { trigger: ['miss u', 'namimiss kita'], reply: 'Aww, na-miss din kita! 🥺💖 Cosmic hug incoming~ ✨🤗' },
+  ];
+
+  for (const response of responses) {
+    if (response.trigger.some((word) => content.includes(word))) {
+      return message.reply(response.reply);
+    }
+  }
+});
+
+
 
 client.login(process.env.TOKEN); // Ensure your .env has the correct bot token
