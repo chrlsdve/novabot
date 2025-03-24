@@ -1,20 +1,40 @@
 require('dotenv').config(); // Load environment variables
 
-const {ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { 
+    ActionRowBuilder, 
+    ButtonBuilder, 
+    ButtonStyle, 
+    Client, 
+    GatewayIntentBits, 
+    EmbedBuilder 
+} = require('discord.js');
 const cron = require('node-cron');
 const { OpenAI } = require('openai');
+
+// Ensure API keys are present
+if (!process.env.OPENAI_API_KEY) {
+    console.error("❌ OpenAI API key is missing!");
+    process.exit(1);
+}
+
+if (!process.env.DISCORD_TOKEN) {
+    console.error("❌ Discord bot token is missing!");
+    process.exit(1);
+}
+
+// Initialize OpenAI
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.OPENAI_API_KEY
 });
 
-
+// Initialize Discord bot client
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
 });
 
 client.once('ready', () => {
