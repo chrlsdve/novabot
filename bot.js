@@ -458,39 +458,6 @@ client.once("ready", async () => {
 
 
 
-const allowedChannelId = '1345414570663084072';
-
-
-client.once('ready', () => {
-  console.log(`🚀 NovaBot is online as ${client.user.tag}`);
-});
-
-client.on('messageCreate', async (message) => {
-  if (message.author.bot) return; // Ignore bot messages
-  if (message.channel.id !== allowedChannelId) return; // Only reply in allowed channel
-
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4-turbo',
-      messages: [
-        { role: 'system', content: "You're NovaBot, a lively, cosmic-themed server member who interacts like a real person in English and Tagalog. You're casual, funny, and engaging—sometimes teasing, sometimes wholesome, always interactive." },
-        { role: 'user', content: message.content },
-      ],
-      max_tokens: 100, // Increased to allow more natural replies
-      temperature: 0.8, // Keeps replies fun and varied
-    });
-
-    const reply = response.choices[0]?.message?.content || "Hmm, di ko gets. Paki-ulit? 🤔";
-    
-    if (reply) {
-      await message.reply(reply);
-    }
-  } catch (error) {
-    console.error('Error generating AI response:', error);
-    await message.reply("Nagkaroon ako ng glitch! ⚡️ Balik ako saglit. 🚀");
-  }
-});
-
 
 
 client.login(process.env.TOKEN); // Ensure your .env has the correct bot token
