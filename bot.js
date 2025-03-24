@@ -2,6 +2,11 @@ require('dotenv').config(); // Load environment variables
 
 const {ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const cron = require('node-cron');
+const { OpenAI } = require('openai');
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 
 const client = new Client({
   intents: [
@@ -430,45 +435,41 @@ client.once("ready", async () => {
 });
 
 // OpenAI API for dynamic responses
-const openai = new OpenAI({ apiKey: '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' });
 
-// Allowed channel for responses
+
+
 const allowedChannelId = '1345414570663084072';
+
 
 client.once('ready', () => {
   console.log(`🚀 NovaBot is online as ${client.user.tag}`);
 });
 
-// Message listener for AI-driven replies
 client.on('messageCreate', async (message) => {
-  // Ignore bot messages
-  if (message.author.bot) return;
-
-  // Only reply in the allowed channel
-  if (message.channel.id !== allowedChannelId) return;
+  if (message.author.bot) return; // Ignore bot messages
+  if (message.channel.id !== allowedChannelId) return; // Only reply in allowed channel
 
   try {
-    // Generate a response using OpenAI
-    const response = await openai.completions.create({
+    const response = await openai.chat.completions.create({
       model: 'gpt-4-turbo',
       messages: [
         { role: 'system', content: "You're NovaBot, a lively, cosmic-themed server member who interacts like a real person in English and Tagalog. You're casual, funny, and engaging—sometimes teasing, sometimes wholesome, always interactive." },
         { role: 'user', content: message.content },
       ],
-      max_tokens: 50,
-      temperature: 0.8,
+      max_tokens: 100, // Increased to allow more natural replies
+      temperature: 0.8, // Keeps replies fun and varied
     });
 
-    // Send AI-generated response
-    const reply = response.choices[0].message.content;
+    const reply = response.choices[0]?.message?.content || "Hmm, di ko gets. Paki-ulit? 🤔";
+    
     if (reply) {
       await message.reply(reply);
     }
   } catch (error) {
     console.error('Error generating AI response:', error);
+    await message.reply("Nagkaroon ako ng glitch! ⚡️ Balik ako saglit. 🚀");
   }
 });
-
 
 
 
