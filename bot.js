@@ -348,69 +348,55 @@ await message.reply({ embeds: [embed] });
     console.log(`Warned ${message.author.tag} in ${message.channel.name}`);
   }
 });
-
-const levelUpChannelId = '1345759905344262179'; // Level-up channel ID
-const arcaneBotId = '1217870452253397082'; // Replace with Arcane-chan's actual bot ID
-
-const levelRewards = {
-    1: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png', roleId: '1345752822532145194' },
-    6: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697928634420/Subtitle_3.png', roleId: '1345753547416932463' },
-    11: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140697299619860/Subtitle_4.png', roleId: '1345753553595011082' },
-    16: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140753096445962/badge2.png', roleId: '1345753557483257968' },
-    21: { badge: 'https://media.discordapp.net/attachments/1334549471350226998/1347140752622358618/badge1.png', roleId: '1345753561694343219' },
-};
-
-client.once('ready', () => {
-    console.log(`🚀 Bot is online as ${client.user.tag}`);
-});
-
 client.on('messageCreate', async (message) => {
-    if (message.channel.id !== levelUpChannelId) return; // Only respond in the level-up channel
-    if (message.author.id !== arcaneBotId) return; // Only listen to Arcane-chan's messages
+  if (message.channel.id === levelUpChannelId && message.author.id === arcaneBotId) {
+      console.log('Detected Arcane-chan level-up message:', message.content);
 
-    // Extract user mention and level from Arcane-chan's message
-    const levelUpRegex = /Congratulations, (<@!?(\d+)>).*?leveled up to (\d+)/;
-    const match = message.content.match(levelUpRegex);
+      // Regex to extract user mention and level
+      const levelUpRegex = /Congratulations, <@!?(\d+)>.*?leveled up to (\d+)/;
+      const match = message.content.match(levelUpRegex);
 
-    if (!match) return; // If format is incorrect, ignore
+      if (!match) return; // If format is incorrect, ignore
 
-    const userId = match[2];
-    const level = parseInt(match[3]);
-    const member = await message.guild.members.fetch(userId).catch(() => null);
+      const userId = match[1];
+      const level = parseInt(match[2]);
 
-    if (!member) return; // If user not found, exit
+      const member = await message.guild.members.fetch(userId).catch(() => null);
+      if (!member) return; // If user not found, exit
 
-    // Prepare the level-up embed
-    const embed = new EmbedBuilder()
-        .setColor('#d94f41')
-        .setTitle('🌟 Cosmic Ascension! 🌟')
-        .setDescription(`✨ Congratulations, ${member}! ✨\n\nYou've **leveled up to Level ${level}** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\nKeep glowing and keep growing — the universe is yours to conquer! 🚀`);
+      // Create level-up embed
+      const embed = new EmbedBuilder()
+          .setColor('#d94f41')
+          .setTitle('🌟 Cosmic Ascension! 🌟')
+          .setDescription(`✨ Congratulations, ${member}! ✨\n\nYou've **leveled up to Level ${level}** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\nKeep glowing and keep growing — the universe is yours to conquer! 🚀`);
 
-    if (levelRewards[level]) {
-        embed.addFields({ name: '🏅 Reward:', value: '🎖️ **New Badge & Role Upgrade** 👑' });
-        embed.setImage(levelRewards[level].badge);
+      if (levelRewards[level]) {
+          embed.addFields({ name: '🏅 Reward:', value: '🎖️ **New Badge & Role Upgrade** 👑' });
+          embed.setImage(levelRewards[level].badge);
 
-        // Assign the role
-        const role = message.guild.roles.cache.get(levelRewards[level].roleId);
-        if (role) {
-            await member.roles.add(role).catch(console.error);
-        }
-    }
+          // Assign role if applicable
+          const role = message.guild.roles.cache.get(levelRewards[level].roleId);
+          if (role) {
+              await member.roles.add(role).catch(console.error);
+          }
+      }
 
-    // Reply to Arcane-chan's level-up message
-    message.reply({ embeds: [embed] }).catch(console.error);
-});
-client.on('messageCreate', async (message) => {
-  if (message.content === '!testembed') {
+      // Reply to Arcane-chan’s level-up message
+      message.reply({ embeds: [embed] }).catch(console.error);
+  }
+
+  // 🔹 Test Embed Command for Moderators
+  if (message.content === '!testlevel') {
       const embed = new EmbedBuilder()
           .setColor('#d94f41')
           .setTitle('🌟 Cosmic Ascension! 🌟')
           .setDescription(`✨ Congratulations, <@${message.author.id}>! ✨\n\nYou've **leveled up to Level 10** and your star shines even brighter in the **Nova Galaxy**! 🌌\n\nKeep glowing and keep growing — the universe is yours to conquer! 🚀`)
           .setImage('https://media.discordapp.net/attachments/1334549471350226998/1347140698536804443/Subtitle_2.png');
-      
+
       message.channel.send({ embeds: [embed] });
   }
 });
+
 
 const CHANNEL_ID = "1352327865248645191"; // Replace with your actual channel ID
 
