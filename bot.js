@@ -429,30 +429,46 @@ client.once("ready", async () => {
         .catch(err => console.error("❌ Error sending farming info embed:", err));
 });
 
-const allowedChannels = ['1345414570663084072'];
+// OpenAI API for dynamic responses
+const openai = new OpenAI({ apiKey: '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' });
+
+// Allowed channel for responses
+const allowedChannelId = '1345414570663084072';
+
+client.once('ready', () => {
+  console.log(`🚀 NovaBot is online as ${client.user.tag}`);
+});
+
+// Message listener for AI-driven replies
 client.on('messageCreate', async (message) => {
+  // Ignore bot messages
   if (message.author.bot) return;
-  if (!allowedChannels.includes(message.channel.id)) return;
 
-  const content = message.content.toLowerCase();
+  // Only reply in the allowed channel
+  if (message.channel.id !== allowedChannelId) return;
 
-  const responses = [
-    { trigger: ['hello', 'hi', 'hey'], reply: 'Heyyy! ✨ How’s your cosmic journey today? 🌌' },
-    { trigger: ['good morning', 'gm'], reply: 'Good morning, starshine! ☀️✨ Hope today’s full of cosmic vibes!' },
-    { trigger: ['good night', 'gn'], reply: 'Sleep well, space explorer! 🌙💫 Dream of galaxies far away~' },
-    { trigger: ['how are you'], reply: 'I’m vibing in the Nova Galaxy~ 🚀 How about you?' },
-    { trigger: ['pagod ako', 'stress ako'], reply: 'Huy, pahinga ka muna! 😌🌿 Baka kailangan mo ng cosmic energy boost? ✨' },
-    { trigger: ['ano ginagawa mo'], reply: 'Nagchichill lang sa spaceship ko~ 🚀 Anong ganap diyan?' },
-    { trigger: ['sino ka'], reply: 'Ako si NovaBot, your cosmic bestie! 🌟 Always here to keep the Nova Fam alive and thriving!' },
-    { trigger: ['miss u', 'namimiss kita'], reply: 'Aww, na-miss din kita! 🥺💖 Cosmic hug incoming~ ✨🤗' },
-  ];
+  try {
+    // Generate a response using OpenAI
+    const response = await openai.completions.create({
+      model: 'gpt-4-turbo',
+      messages: [
+        { role: 'system', content: "You're NovaBot, a lively, cosmic-themed server member who interacts like a real person in English and Tagalog. You're casual, funny, and engaging—sometimes teasing, sometimes wholesome, always interactive." },
+        { role: 'user', content: message.content },
+      ],
+      max_tokens: 50,
+      temperature: 0.8,
+    });
 
-  for (const response of responses) {
-    if (response.trigger.some((word) => content.includes(word))) {
-      return message.reply(response.reply);
+    // Send AI-generated response
+    const reply = response.choices[0].message.content;
+    if (reply) {
+      await message.reply(reply);
     }
+  } catch (error) {
+    console.error('Error generating AI response:', error);
   }
 });
+
 
 
 
