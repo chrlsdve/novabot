@@ -412,6 +412,16 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+const INTRO_CHANNEL_ID = '1334568253753655326';
+
+client.on('messageCreate', async (message) => {
+    if (message.author.bot || message.channel.id !== INTRO_CHANNEL_ID) return;
+
+    const welcomeMessage = await message.reply(`🚀 Welcome to the Nova Fam! ${message.author} Can’t wait to see you shine! 🌟✨`);
+    await welcomeMessage.react('✨'); // Add reactions to the message
+    await welcomeMessage.react('🌙'); 
+});
+
 const CHANNEL_ID = "1352327865248645191"; // Replace with your actual channel ID
 
 client.once("ready", async () => {
