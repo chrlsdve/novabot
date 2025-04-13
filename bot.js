@@ -71,7 +71,6 @@ client.on('guildMemberAdd', (member) => {
 
 
 // Auto-reply to images with reactions and an embed
-const { EmbedBuilder } = require('discord.js'); // Make sure you import this
 const targetChannelId = '1334568160719933491'; // Replace with your actual photo channel ID
 
 const randomReplies = [
