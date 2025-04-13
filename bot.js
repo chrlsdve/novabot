@@ -47,7 +47,7 @@ client.on('guildMemberAdd', (member) => {
   if (!welcomeChannel) return console.log('Welcome channel not found.');
 
   const welcomeEmbed = new EmbedBuilder()
-    .setColor('#d94f41')
+    .setColor('#33dec1')
     .setTitle('🌌 Welcome to the Nova Galaxy! 🌟')
     .setDescription(`A new star has arrived — welcome, ${member}! ✨\nShine bright and explore the cosmos!`)
     .addFields(
@@ -57,7 +57,7 @@ client.on('guildMemberAdd', (member) => {
       { name: 'Read the Rules:', value: 'Familiarize yourself with <#1334553418681024512> to keep the universe in harmony.', inline: false }
     )
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
-    .setImage('https://cdn.discordapp.com/attachments/1334549471350226998/1346360193298075679/novastars.jpg')
+    .setImage('https://cdn.discordapp./attachments/1334549471350226998/1346360193298075679/novastars.jpg')
     .setFooter({ text: '🌠 May your star shine bright! 🌠' });
 
   welcomeChannel.send({ content: `🌟 Welcome to the cosmos, ${member}!`, embeds: [welcomeEmbed] }).then(msg => {
@@ -67,39 +67,12 @@ client.on('guildMemberAdd', (member) => {
 });
 
 
-client.once('ready', () => {
-  console.log(`${client.user.tag} is online!`);
-
-  cron.schedule('0 6 * * *', async () => {
-    const guild = client.guilds.cache.find(g => g.name === 'ꌗꂦ꒒ꍏꋪ ꌗꉣꍏꉓꍟ ꂦꎇ ꈤꂦꃴꍏ');
-    if (!guild) return console.log('Guild not found.');
-
-    const cosmicLounge = client.channels.cache.get('1334553960891285605');
-    if (!cosmicLounge) return console.log('Cosmic lounge channel not found.');
-
-    const role = guild.roles.cache.find(role => role.name === '💫𝑵𝒐𝒗𝒂 𝒔𝒕𝒂𝒓𝒔');
-    if (!role) return console.log('Role not found.');
-
-    const embed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setAuthor({ name: 'Miskie Nova', iconURL: 'https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/c4af5d7b09fe6447d850ae1ce9fc68a10d464b633f167bdaefa778e16324e16f.jpeg' })
-      .setTitle('✨ Good morning, Nova Star! 🌟')
-      .setDescription(`Good morning ${role}! ☀️  
-Don't forget to have your breakfast, and may your day be as radiant as a supernova and as fierce as a queen on the runway.`)
-      .setImage('https://cdn-longterm.mee6.xyz/plugins/embeds/images/1334544134257508363/014da2e5b0a1217e42c3e086b57c09627d8a585692512e85ab7a4d5b4d34e271.jpeg')
-      .setFooter({ text: '💫 Love you all to the galaxies and back! 🚀' });
-
-    await cosmicLounge.send({ content: `${role}`, embeds: [embed] });
-    console.log('Morning message sent.');
-  }, {
-    timezone: "Asia/Manila"
-  });
-});
 
 
 
 // Auto-reply to images with reactions and an embed
-const targetChannelId = '1334568160719933491'; // Replace with your photo channel's ID
+const { EmbedBuilder } = require('discord.js'); // Make sure you import this
+const targetChannelId = '1334568160719933491'; // Replace with your actual photo channel ID
 
 const randomReplies = [
   '💃 Strut it, star! That runway has never seen such elegance!',
@@ -180,87 +153,68 @@ const randomReplies = [
   '🌈 Pure perfection, as always!',
 ];
 
+const multiReplies = [
+  '📷 A whole collection of SLAYS?! You really didn’t come to play!',
+  '👀 Every pic? A serve. You’re unstoppable!',
+  '💖 Giving a full editorial moment — every frame is perfection!',
+  '✨ Multi-angle beauty unlocked. This is a cosmic photoshoot!',
+  '📸 OMG, a whole gallery of iconic energy!',
+  '🛸 These pics just teleported me to fashion heaven!',
+  '🎬 Main character energy in every. single. shot!',
+  '🔥 From every angle? Still a slay. Wow!',
+  '📷 A whole album of slay? This is a visual blessing!',
+  '📸 Every photo is a *moment* — you’re unstoppable!',
+  '👑 A gallery fit for royalty. You’re serving in every shot!',
+  '🖼️ Each pic is art. Together? A whole museum exhibit!',
+  '💫 A multiverse of looks, and you’re the main star in all of them!',
+  '🚀 These pictures just elevated the entire timeline!',
+  '🎨 You really said “let me drop a masterpiece collection” huh?',
+  '📢 One photo wasn’t enough for all this fabulousness!',
+  '🔥 This is what happens when perfection hits burst mode!',
+  '🌠 Giving multi-dimensional beauty — you didn’t have to go THAT hard!',
+  '🧃 Every pic is dripping with flavor. Iconic.',
+  '🎥 You turned the photo gallery into a blockbuster slideshow!',
+  '🌈 Each snap is giving a different flavor of fabulous!',
+  '🪞Reflections of beauty from every angle. We love to see it!',
+  '📷 This is what we call a photo *drop*! You ATE.',
+];
+
+
 client.on('messageCreate', (message) => {
-  if (message.channel.id === targetChannelId && message.attachments.size > 0 && !message.author.bot) {
-    const randomReply = randomReplies[Math.floor(Math.random() * randomReplies.length)];
+  if (
+    message.channel.id === targetChannelId &&
+    message.attachments.size > 0 &&
+    !message.author.bot
+  ) {
+    const isMulti = message.attachments.size > 1;
+    const replyText = isMulti
+      ? multiReplies[Math.floor(Math.random() * multiReplies.length)]
+      : randomReplies[Math.floor(Math.random() * randomReplies.length)];
+
     const userMention = `<@${message.author.id}>`;
 
     const replyEmbed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setDescription(`${randomReply} ${userMention}`)
-      //.setImage(message.attachments.first().url)
+      .setColor('#33dec1')
+      .setAuthor({
+        name: `${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      })
+      .setDescription(`${replyText} ${userMention}`)
       .setFooter({ text: '🌟 Keep dazzling us with your art!' });
 
-    message.reply({ embeds: [replyEmbed] }).then((msg) => {
-      msg.react('🫶');
-      msg.react('💖');
-      msg.react('✨');
-    }).catch(console.error);
+    message
+      .reply({ embeds: [replyEmbed] })
+      .then((msg) => {
+        msg.react('🫶');
+        msg.react('💖');
+        msg.react('✨');
+      })
+      .catch(console.error);
   }
 });
 
-// Auto-reply for runway looks channel
-const runwayChannelId = '1334554404384411780'; // Replace with your runway look channel's ID
 
-const runwayReplies = [
-  '💃 Strut it, star! That runway has never seen such elegance!',
-  '🌟 Serving looks, slaying hearts — you are a galactic fashion icon!',
-  '✨ The category is: Serve... and you ATE!',
-  '🚀 Out of this world! Your look just launched into the fashion cosmos!',
-  '🌠 Fierce, fabulous, flawless — you OWN that runway!',
-  '🔥 This galaxy isn’t ready for your cosmic charisma, uniqueness, nerve, and talent!',
 
-  // 🌈 Campy & Fun
-  '💅 Pose, twirl, SERVE! You just turned this runway into a spectacle!',
-  '👑 Royalty has arrived! Bow down to this fashion supremacy!',
-  '🍽️ You didn’t just eat, you devoured the whole fashion industry!',
-  '🎭 Drama, glamour, extravaganza — this is what a runway moment looks like!',
-  '✨ Glitter, glam, and a whole lot of attitude – we LOVE to see it!',
-  '🎬 And the award for Best Dressed goes to… YOU! *Cue standing ovation!*',
-  
-  // 🔥 Sass & Iconic
-  '💀 The girls are gagging, the judges are speechless — you WIN!',
-  '💖 This isn’t just fashion, it’s a cultural reset!',
-  '🛑 STOP! Fashion police just called, and they said you’re too powerful!',
-  '🧵 Fabric? Stunned. Stitching? Seamless. You? Perfection.',
-  '📸 *Click click click* The paparazzi can’t get enough of this LEWK!',
-  
-  // 🕺 Pop Culture References
-  '🎤 *Shantay, you stay!* Because that look just won the night!',
-  '👠 *These boots were made for slayin’… and that’s just what you did!*',
-  '✨ *In the words of the great RuPaul… You. Better. Work!*',
-  '🦄 *Giving very much “fashion unicorn realness” and we’re LIVING!*',
-  '💃 *Straight out of a Vogue magazine — Naomi Campbell is shaking!*',
-  
-  // 🔥 Dramatic & Extra
-  '💣 BOOM! That’s the sound of you shutting down the competition!',
-  '🔥 *Call the fire department, because this runway is BLAZING!*',
-  '🌊 You didn’t walk, you WAVED, and honey, we’re drowning in this look!',
-  '👀 We’re not just watching, we’re taking notes. FASHION MASTERCLASS!',
-  '🌪️ You didn’t walk the runway; you *stormed* it. Absolute destruction!',
-];
-
-client.on('messageCreate', (message) => {
-  if (message.channel.id === runwayChannelId && message.attachments.size > 0 && !message.author.bot) {
-    const randomRunwayReply = runwayReplies[Math.floor(Math.random() * runwayReplies.length)];
-    const userMention = `<@${message.author.id}>`;
-
-    const runwayEmbed = new EmbedBuilder()
-      .setColor('#d94f41')
-      .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setTitle('🌟 Runway Royalty Alert! 🌟')
-      .setDescription(`${randomRunwayReply} ${userMention}`)
-      //.setImage(message.attachments.first().url)
-      .setFooter({ text: '✨ Keep the looks coming — the galaxy is your runway!' });
-
-    message.reply({ embeds: [runwayEmbed] }).then((msg) => {
-      msg.react('👑');
-      msg.react('🔥');
-      msg.react('🌌');
-    }).catch(console.error);
-  }
-});
 
 // Get the Security-Star channel
 const securityStarChannelId = '1345615698390548601'; // Replace with your Security-Star channel ID
