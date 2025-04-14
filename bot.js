@@ -57,7 +57,7 @@ client.on('guildMemberAdd', (member) => {
       { name: 'Read the Rules:', value: 'Familiarize yourself with <#1334553418681024512> to keep the universe in harmony.', inline: false }
     )
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
-    .setImage('https://cdn.discordapp./attachments/1334549471350226998/1346360193298075679/novastars.jpg')
+    .setImage('https://cdn.discordapp.com/attachments/1334549471350226998/1346360193298075679/novastars.jpg')
     .setFooter({ text: '🌠 May your star shine bright! 🌠' });
 
   welcomeChannel.send({ content: `🌟 Welcome to the cosmos, ${member}!`, embeds: [welcomeEmbed] }).then(msg => {
