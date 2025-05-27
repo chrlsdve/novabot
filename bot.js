@@ -27,7 +27,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-// Initialize Discord bot client
+// Initialize Discord bot client is eme
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
